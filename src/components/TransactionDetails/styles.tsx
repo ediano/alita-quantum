@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import { QRCode } from "react-qr-svg";
+import styled, { css } from 'styled-components';
+import { QRCode } from 'react-qr-svg';
 
 export const Span = styled.span`
   text-transform: uppercase;
@@ -36,7 +36,7 @@ export const Payout = styled.div`
   padding: 10px;
   font-size: 1.2rem;
   border: ${(props) =>
-    props.className === "to"
+    props.className === 'to'
       ? css`1px solid var(--confirm)`
       : css`1px solid var(--hover)`};
 `;
@@ -115,43 +115,43 @@ export const Progress = styled.div`
   margin: 10px 0;
 
   ${(props) =>
-    props.className === "waiting" &&
+    props.className === 'waiting' &&
     css`
       border: 5px solid #ffff00;
     `}
 
   ${(props) =>
-    props.className === "confirming" &&
+    props.className === 'confirming' &&
     css`
       border: 5px solid var(--confirm);
     `}
 
   ${(props) =>
-    props.className === "exchanging" &&
+    props.className === 'exchanging' &&
     css`
       border: 5px solid var(--confirm);
     `}
 
   ${(props) =>
-    props.className === "sending" &&
+    props.className === 'sending' &&
     css`
       border: 5px solid var(--confirm);
     `}
 
   ${(props) =>
-    props.className === "finished" &&
+    props.className === 'finished' &&
     css`
       border: 5px solid var(--confirm);
     `}
 
   ${(props) =>
-    props.className === "failed" &&
+    props.className === 'failed' &&
     css`
       border: 5px solid var(--alert);
     `}
 
   ${(props) =>
-    props.className === "expired" &&
+    props.className === 'expired' &&
     css`
       border: 5px solid var(--alert);
     `}
@@ -161,46 +161,46 @@ export const ProgressContent = styled.span`
   height: 100%;
   display: block;
 
+  ${(props) =>
+    props.className === 'waiting' &&
+    css`
+      background: #ffff00;
+      width: 1%;
+    `}
+  ${(props) =>
+    props.className === 'confirming' &&
+    css`
+      background: var(--confirm);
+      width: 25%;
+    `}
     ${(props) =>
-      props.className === "waiting" &&
-      css`
-        background: #ffff00;
-        width: 1%;
-      `}
+    props.className === 'exchanging' &&
+    css`
+      background: var(--confirm);
+      width: 40%;
+    `}
     ${(props) =>
-      props.className === "confirming" &&
-      css`
-        background: var(--confirm);
-        width: 25%;
-      `}
+    props.className === 'sending' &&
+    css`
+      background: var(--confirm);
+      width: 60%;
+    `}
     ${(props) =>
-      props.className === "exchanging" &&
-      css`
-        background: var(--confirm);
-        width: 40%;
-      `}
+    props.className === 'finished' &&
+    css`
+      background: var(--confirm);
+      width: 100%;
+    `}
     ${(props) =>
-      props.className === "sending" &&
-      css`
-        background: var(--confirm);
-        width: 60%;
-      `}
+    props.className === 'failed' &&
+    css`
+      background: var(--alert);
+      width: 100%;
+    `}
     ${(props) =>
-      props.className === "finished" &&
-      css`
-        background: var(--confirm);
-        width: 100%;
-      `}
-    ${(props) =>
-      props.className === "failed" &&
-      css`
-        background: var(--alert);
-        width: 100%;
-      `}
-    ${(props) =>
-      props.className === "expired" &&
-      css`
-        background: var(--alert);
-        width: 100%;
-      `};
+    props.className === 'expired' &&
+    css`
+      background: var(--alert);
+      width: 100%;
+    `};
 `;

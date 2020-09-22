@@ -5,16 +5,16 @@ import React, {
   ChangeEvent,
   FormEvent,
   useEffect,
-} from "react";
-import { useHistory } from "react-router-dom";
-import { Props, State, Success } from "./types";
+} from 'react';
+import { useHistory } from 'react-router-dom';
+import { Props, State, Success } from './types';
 
-import { useListCoinValueContext } from "../ListCoinValueContext";
-import { api } from "../../services/api";
+import { useListCoinValueContext } from '../ListCoinValueContext';
+import api from '../../services/api';
 
 const ExchangeContext = createContext<State>({} as State);
 
-export const ExchangeProvider: React.FC<Props> = ({ ...props }) => {
+export const ExchangeProvider: React.FC<Props> = ({ dataURL, children }) => {
   const {
     flow,
     setFlow,
@@ -23,28 +23,28 @@ export const ExchangeProvider: React.FC<Props> = ({ ...props }) => {
     setSendAmount,
   } = useListCoinValueContext();
   const history = useHistory();
-  const [payoutAddress, setPayoutAddress] = useState("");
-  const [extraId, setExtraId] = useState("");
+  const [payoutAddress, setPayoutAddress] = useState('');
+  const [extraId, setExtraId] = useState('');
   const [propsSelectedCoin, setPropsSelectedCoin] = useState(false);
   const [propsFlow, setPropsFlow] = useState(false);
 
   const [confirmTransaction, setConfirmTransaction] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [success, setSuccess] = useState<Success | null>({} as Success);
   const [spinner, setSpinner] = useState(false);
 
   useEffect(() => {
-    const { amount, from, to } = props.dataURL;
+    const { amount, from, to } = dataURL;
 
-    let checkerFow =
+    const checkerFow =
       Number(flow.amount) > 0 && Number(flow.amount) / 2 === minAmount;
 
-    function setFromToProps() {
+    function setFromToProps(): void {
       setPropsSelectedCoin(true);
       setSelectedCoin({ from, to });
     }
 
-    function setPropsToFlow() {
+    function setPropsToFlow(): void {
       setPropsFlow(true);
       setFlow({ amount, from, to });
       setSendAmount(amount);
@@ -53,7 +53,7 @@ export const ExchangeProvider: React.FC<Props> = ({ ...props }) => {
     !propsSelectedCoin && setFromToProps();
     !propsFlow && checkerFow && setPropsToFlow();
   }, [
-    props.dataURL,
+    dataURL,
     propsSelectedCoin,
     propsFlow,
     flow,
@@ -64,18 +64,18 @@ export const ExchangeProvider: React.FC<Props> = ({ ...props }) => {
   ]);
 
   useEffect(() => {
-    const { amount, from, to } = props.dataURL;
+    const { amount, from, to } = dataURL;
 
     if (propsFlow) {
       if (`${from}_${to}` !== `${flow.from}_${flow.to}`) {
         history.push(`/trocar/${flow.amount}/${flow.from}/${flow.to}`);
-        setPayoutAddress("");
-        setExtraId("");
+        setPayoutAddress('');
+        setExtraId('');
       } else if (Number(flow.amount) !== Number(amount)) {
         history.push(`/trocar/${flow.amount}/${flow.from}/${flow.to}`);
       }
     }
-  }, [propsFlow, props.dataURL, flow, history]);
+  }, [propsFlow, dataURL, flow, history]);
 
   useEffect(() => {
     if (success?.id) {
@@ -87,31 +87,31 @@ export const ExchangeProvider: React.FC<Props> = ({ ...props }) => {
     }
   }, [flow, success, history, error]);
 
-  function handlaPayoutAddress(event: ChangeEvent<HTMLInputElement>) {
+  function handlaPayoutAddress(event: ChangeEvent<HTMLInputElement>): void {
     const { value } = event.target;
 
     setPayoutAddress(value);
   }
 
-  function handlaExtraId(event: ChangeEvent<HTMLInputElement>) {
+  function handlaExtraId(event: ChangeEvent<HTMLInputElement>): void {
     const { value } = event.target;
 
     setExtraId(value);
   }
 
-  function handlaClick() {
+  function handlaClick(): void {
     if (payoutAddress) {
       if (confirmTransaction) {
         success?.id && setSuccess(null);
         setConfirmTransaction(false);
-        setError("");
+        setError('');
       } else {
         setConfirmTransaction(true);
       }
     }
   }
 
-  function handlaSubmit(event: FormEvent) {
+  function handlaSubmit(event: FormEvent): void {
     event.preventDefault();
     setSpinner(true);
 
@@ -122,15 +122,12 @@ export const ExchangeProvider: React.FC<Props> = ({ ...props }) => {
       to,
       amount,
       address: payoutAddress,
-      extraId: extraId ? extraId : "",
+      extraId: extraId || '',
     };
 
     if (payoutAddress && Number(flow.amount) >= minAmount) {
       api
-        .post<Success>(
-          `/transactions/${process.env.REACT_APP_API_KEY}`,
-          data
-        )
+        .post<Success>(`/transactions/${process.env.REACT_APP_API_KEY}`, data)
         .then((response) => {
           setSuccess(response.data);
         })
@@ -156,12 +153,12 @@ export const ExchangeProvider: React.FC<Props> = ({ ...props }) => {
 
   return (
     <ExchangeContext.Provider value={value}>
-      {props.children}
+      {children}
     </ExchangeContext.Provider>
   );
 };
 
-export const useExchangeContext = () => {
+export const useExchangeContext = (): State => {
   const context = useContext(ExchangeContext);
   return context;
 };

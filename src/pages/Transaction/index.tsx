@@ -1,13 +1,13 @@
-import React from "react";
-import { Helmet } from "react-helmet";
-import { ListCoinValueProvider } from "../../contexts/ListCoinValueContext";
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { ListCoinValueProvider } from '../../contexts/ListCoinValueContext';
 
-import Page from "../../components/Layout/pages";
-import TransactionDetails from "../../components/TransactionDetails";
+import Page from '../../components/Layout/pages';
+import TransactionDetails from '../../components/TransactionDetails';
 
-import { site } from "../../config/site";
+import { site } from '../../config/site';
 
-import * as S from "./styles";
+import * as S from './styles';
 
 interface Props {
   match: {
@@ -17,12 +17,12 @@ interface Props {
   };
 }
 
-const Transaction: React.FC<Props> = ({ ...props }) => (
+const Transaction: React.FC<Props> = ({ match }) => (
   <Page>
     <Helmet title={`Transação | ${site.title}`} />
     <S.Main>
       <ListCoinValueProvider>
-        <TransactionDetails id={props.match.params.id} />
+        <TransactionDetails id={match.params.id} />
       </ListCoinValueProvider>
     </S.Main>
   </Page>

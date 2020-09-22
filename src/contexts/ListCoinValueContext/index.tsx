@@ -5,8 +5,8 @@ import React, {
   useEffect,
   ChangeEvent,
   FormEvent,
-} from "react";
-import { useHistory } from "react-router-dom";
+} from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   State,
   Coins,
@@ -14,9 +14,9 @@ import {
   SelectedCoin,
   EstimatedAmount,
   MinAmount,
-} from "./types";
+} from './types';
 
-import { api } from "../../services/api";
+import api from '../../services/api';
 
 export const ListCoinValueContext = createContext<State>({} as State);
 
@@ -25,46 +25,44 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
   const [coins, setCoins] = useState<Coins[]>([]);
   const [marketInfo, setMarketInfo] = useState<string[]>([]);
   const [selectedCoin, setSelectedCoin] = useState<SelectedCoin>({
-    from: "btc",
-    to: "eth",
+    from: 'btc',
+    to: 'eth',
   });
   const [minAmount, setMinAmount] = useState(0);
   const [estimatedAmount, setEstimatedAmount] = useState(0);
-  const [sendAmount, setSendAmount] = useState("");
+  const [sendAmount, setSendAmount] = useState('');
   const [flow, setFlow] = useState<Flow>({
-    amount: "0",
-    from: "btc",
-    to: "eth",
+    amount: '0',
+    from: 'btc',
+    to: 'eth',
   });
   const [idExternal, setIdExternal] = useState(false);
 
   useEffect(() => {
-    async function loadCoins() {
-      const response = await api.get<Coins[]>(
-        `/currencies?active=true`
-      );
+    async function loadCoins(): Promise<void> {
+      const response = await api.get<Coins[]>(`/currencies?active=true`);
       setCoins(response.data);
     }
+
     loadCoins();
   }, []);
 
   useEffect(() => {
-    async function marketValidation() {
+    async function marketValidation(): Promise<void> {
       const response = await api.get(
         `/market-info/available-pairs/?includePartners=false`
       );
       setMarketInfo(response.data);
     }
+
     marketValidation();
   }, []);
 
   useEffect(() => {
     const { from, to } = selectedCoin;
 
-    async function minAmount() {
-      const response = await api.get<MinAmount>(
-        `/min-amount/${from}_${to}`
-      );
+    async function minAmount(): Promise<void> {
+      const response = await api.get<MinAmount>(`/min-amount/${from}_${to}`);
 
       const data = {
         amount: String(response.data.minAmount * 2),
@@ -94,7 +92,7 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
   useEffect(() => {
     const { amount, from, to } = flow;
 
-    async function exchangeAmount() {
+    async function exchangeAmount(): Promise<void> {
       const response = await api.get<EstimatedAmount>(
         `/exchange-amount/${amount}/${from}_${to}/?api_key=${process.env.REACT_APP_API_KEY}`
       );
@@ -106,17 +104,17 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
     }
   }, [flow]);
 
-  function handlaSelectedCoin(event: ChangeEvent<HTMLSelectElement>) {
+  function handlaSelectedCoin(event: ChangeEvent<HTMLSelectElement>): void {
     const { name, value } = event.target;
     const { from, to } = flow;
 
-    if (name === "from" && value === to) {
+    if (name === 'from' && value === to) {
       setSelectedCoin({
         ...selectedCoin,
         to: from,
         [name]: value,
       });
-    } else if (name === "to" && value === from) {
+    } else if (name === 'to' && value === from) {
       setSelectedCoin({
         ...selectedCoin,
         from: to,
@@ -127,19 +125,19 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
     }
   }
 
-  function handlaSendValue(event: ChangeEvent<HTMLInputElement>) {
+  function handlaSendValue(event: ChangeEvent<HTMLInputElement>): void {
     const { value } = event.target;
 
-    if (value === "") {
-      setFlow({ ...flow, amount: "0" });
-      setSendAmount("");
+    if (value === '') {
+      setFlow({ ...flow, amount: '0' });
+      setSendAmount('');
     } else if (Number(value) || Number(value) === 0) {
       setSendAmount(value);
       setFlow({ ...flow, amount: value });
     }
   }
 
-  function handlaExchange() {
+  function handlaExchange(): void {
     setSelectedCoin({
       ...selectedCoin,
       from: flow.to,
@@ -147,7 +145,7 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
     });
   }
 
-  function handlaSubmit(event: FormEvent) {
+  function handlaSubmit(event: FormEvent): void {
     event.preventDefault();
 
     const { amount, from, to } = flow;
@@ -181,7 +179,7 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
   );
 };
 
-export const useListCoinValueContext = () => {
+export const useListCoinValueContext = (): State => {
   const context = useContext(ListCoinValueContext);
   return context;
 };

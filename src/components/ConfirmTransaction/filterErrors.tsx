@@ -1,21 +1,27 @@
-import React from "react";
+import React from 'react';
 
-import * as S from "./styles";
+import * as S from './styles';
 
-export const err = (e: string, one: string, tow: string) => {
-  if (e === "not_valid_address") {
+interface ErrProps {
+  err: string;
+  one: string;
+  tow: string;
+}
+
+const Err: React.FC<ErrProps> = ({ err, one, tow }) => {
+  if (err === 'not_valid_address') {
     return (
       <S.ErrContent>
-        <S.ErrSpanWeight>{one}</S.ErrSpanWeight> não é um endereço{" "}
+        <S.ErrSpanWeight>{one}</S.ErrSpanWeight> não é um endereço{' '}
         <S.ErrSpan>{tow}</S.ErrSpan> válido.
       </S.ErrContent>
     );
   }
 
-  if (e === "out_of_range") {
+  if (err === 'out_of_range') {
     return (
       <S.ErrContent>
-        Montante é inferior ao mínimo:{" "}
+        Montante é inferior ao mínimo:{' '}
         <S.ErrSpan>
           {one} {tow}.
         </S.ErrSpan>
@@ -23,12 +29,16 @@ export const err = (e: string, one: string, tow: string) => {
     );
   }
 
-  if (e === "not_valid_extra_id") {
+  if (err === 'not_valid_extra_id') {
     return (
       <S.ErrContent>
-        <S.ErrSpanWeight>{one}</S.ErrSpanWeight>: Não é um ID extra válido de{" "}
+        <S.ErrSpanWeight>{one}</S.ErrSpanWeight>: Não é um ID extra válido de{' '}
         <S.ErrSpan>{tow}</S.ErrSpan>.
       </S.ErrContent>
     );
   }
+
+  return <></>;
 };
+
+export default Err;

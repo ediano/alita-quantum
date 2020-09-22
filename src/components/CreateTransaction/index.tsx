@@ -1,8 +1,8 @@
-import React from "react";
-import { useListCoinValueContext } from "../../contexts/ListCoinValueContext";
-import { useExchangeContext } from "../../contexts/ExchangeContext";
+import React from 'react';
+import { useListCoinValueContext } from '../../contexts/ListCoinValueContext';
+import { useExchangeContext } from '../../contexts/ExchangeContext';
 
-import * as S from "./styles";
+import * as S from './styles';
 
 const ConfirmTransaction: React.FC = () => {
   const { flow, idExternal } = useListCoinValueContext();
@@ -28,8 +28,8 @@ const ConfirmTransaction: React.FC = () => {
             id="address"
             onChange={handlaPayoutAddress}
             value={payoutAddress}
-            defaultValue={payoutAddress ? payoutAddress : undefined}
-            placeholder={`Endereço`}
+            defaultValue={payoutAddress || undefined}
+            placeholder="Endereço"
           />
         </S.Field>
 
@@ -44,7 +44,7 @@ const ConfirmTransaction: React.FC = () => {
                 id="extraId"
                 onChange={handlaExtraId}
                 value={extraId}
-                defaultValue={extraId ? extraId : undefined}
+                defaultValue={extraId || undefined}
                 placeholder="Opcional: TAG/ID/MEMO"
               />
             </>

@@ -1,11 +1,11 @@
-import React from "react";
-import { useListCoinValueContext } from "../../contexts/ListCoinValueContext";
-import { useExchangeContext } from "../../contexts/ExchangeContext";
+import React from 'react';
+import { useListCoinValueContext } from '../../contexts/ListCoinValueContext';
+import { useExchangeContext } from '../../contexts/ExchangeContext';
 
-import { err } from "./filterErrors";
+import Err from './filterErrors';
 
-import Spinner from "../Spinner";
-import * as S from "./styles";
+import Spinner from '../Spinner';
+import * as S from './styles';
 
 const ConfirmTransaction: React.FC = () => {
   const { flow, estimatedAmount, minAmount } = useListCoinValueContext();
@@ -24,13 +24,17 @@ const ConfirmTransaction: React.FC = () => {
         <>
           <S.Section>
             <S.ContentSection>
-              {error === "not_valid_address" &&
-                err(error, payoutAddress, flow.to)}
+              {error === 'not_valid_address' && (
+                <Err err={error} one={payoutAddress} tow={flow.to} />
+              )}
 
-              {error === "out_of_range" &&
-                err(error, String(minAmount), flow.to)}
+              {error === 'out_of_range' && (
+                <Err err={error} one={String(minAmount)} tow={flow.to} />
+              )}
 
-              {error === "not_valid_extra_id" && err(error, extraId, flow.to)}
+              {error === 'not_valid_extra_id' && (
+                <Err err={error} one={extraId} tow={flow.to} />
+              )}
 
               {spinner && <Spinner />}
               <S.ContentDiv>

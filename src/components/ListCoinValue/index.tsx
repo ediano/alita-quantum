@@ -1,14 +1,14 @@
-import React from "react";
-import { useListCoinValueContext } from "../../contexts/ListCoinValueContext";
-import { BsArrowUpDown as Ico } from "react-icons/bs";
+import React from 'react';
+import { BsArrowUpDown as Ico } from 'react-icons/bs';
+import { useListCoinValueContext } from '../../contexts/ListCoinValueContext';
 
-import * as S from "./styles";
+import * as S from './styles';
 
 interface Props {
   page?: string;
 }
 
-const ListCoinValue: React.FC<Props> = ({ ...props }) => {
+const ListCoinValue: React.FC<Props> = ({ page }) => {
   const {
     coins,
     minAmount,
@@ -23,7 +23,7 @@ const ListCoinValue: React.FC<Props> = ({ ...props }) => {
   return (
     <>
       <S.Fieldset>
-        <S.Legend theme={props.page}>Envia</S.Legend>
+        <S.Legend theme={page}>Envia</S.Legend>
         <S.FieldGroup>
           <S.Field>
             <S.Input
@@ -50,19 +50,19 @@ const ListCoinValue: React.FC<Props> = ({ ...props }) => {
           <S.Label htmlFor="send">
             {minAmount > Number(flow.amount)
               ? `Montante mínimo de envio: ${minAmount}`
-              : ""}
+              : ''}
           </S.Label>
         </S.FieldGroup>
       </S.Fieldset>
 
       <S.Div>
-        <S.IcoButton theme={props.page} type="button" onClick={handlaExchange}>
+        <S.IcoButton theme={page} type="button" onClick={handlaExchange}>
           <Ico size={50} />
         </S.IcoButton>
       </S.Div>
 
       <S.Fieldset>
-        <S.Legend theme={props.page}>Recebe</S.Legend>
+        <S.Legend theme={page}>Recebe</S.Legend>
         <S.FieldGroup>
           <S.Field>
             <S.Input
@@ -70,7 +70,7 @@ const ListCoinValue: React.FC<Props> = ({ ...props }) => {
               name="receive_amount"
               id="receive_amount"
               value={Number(flow.amount) >= minAmount ? estimatedAmount : 0}
-              disabled={true}
+              disabled
             />
             <S.Select
               name="to"

@@ -1,13 +1,13 @@
-import React from "react";
-import { Helmet } from "react-helmet";
-import { ListCoinValueProvider } from "../../contexts/ListCoinValueContext";
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { ListCoinValueProvider } from '../../contexts/ListCoinValueContext';
 
-import Index from "../../components/Layout";
-import HomeSubmit from "../../components/Form/HomeSubmit";
+import Index from '../../components/Layout';
+import HomeSubmit from '../../components/Form/HomeSubmit';
 
-import { site } from "../../config/site";
+import { site } from '../../config/site';
 
-import * as S from "./styles";
+import * as S from './styles';
 
 const Home: React.FC = () => (
   <Index>

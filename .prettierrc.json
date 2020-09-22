@@ -1,0 +1,6 @@
+{
+  "singleQuote": true,
+  "allowParens": "avoid",
+  "trailingComa": "all",
+  "endOfLine": "auto"
+}

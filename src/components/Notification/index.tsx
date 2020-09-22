@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import * as S from "./styles";
+import * as S from './styles';
 
 const Notification: React.FC = () => (
   <S.Section>
@@ -8,7 +8,7 @@ const Notification: React.FC = () => (
       Este projeto foi criado com a finalidade de servir como base e modelo de
       desenvolvimento para novos serviços de troca de criptomoedas, consumindo a
       API da ChangeNOW. E está disponível no GitHub de forma livre sob licença
-      MIT,{" "}
+      MIT,{' '}
       <S.TxtLink
         href="https://github.com/ediano/alitaquantum.com"
         target="black"
@@ -22,14 +22,14 @@ const Notification: React.FC = () => (
 
     <S.Paragraph>
       Caso deseja realizar uma transação para testes, fique à vontade, este
-      projeto é 100% funcional. Para construir um projeto usando a API da ChangeNOW, você
-      deverá se tornar um{" "}
+      projeto é 100% funcional. Para construir um projeto usando a API da
+      ChangeNOW, você deverá se tornar um{' '}
       <S.TxtLink
         href="https://changenow.io?link_id=9f50d5b539b6a2"
         target="black"
       >
         afiliado
-      </S.TxtLink>{" "}
+      </S.TxtLink>{' '}
       para aderir a sua API_KEY.
     </S.Paragraph>
 

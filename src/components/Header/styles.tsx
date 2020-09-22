@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
-import teia from "../../image/map.svg";
+import teia from '../../image/map.svg';
 
 export const Header = styled.header`
   display: flex;
@@ -8,7 +8,7 @@ export const Header = styled.header`
   box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.25);
 
   ${(props) =>
-    props.theme === "home" &&
+    props.theme === 'home' &&
     css`
       background: var(--primary);
       background-image: url(${teia});
@@ -16,7 +16,7 @@ export const Header = styled.header`
     `}
 
   ${(props) =>
-    props.theme !== "home" &&
+    props.theme !== 'home' &&
     css`
       nav {
         background: var(--primary);
