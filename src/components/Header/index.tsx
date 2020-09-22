@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react';
 
-import Nav from "../Nav";
+import Nav from '../Nav';
 
-import * as S from "./styles";
+import * as S from './styles';
 
 interface Props {
   page?: string;
 }
 
-const Header: React.FC<Props> = ({ ...props }) => (
-  <S.Header theme={props.page}>
+const Header: React.FC<Props> = ({ page, children }) => (
+  <S.Header theme={page}>
     <Nav />
-    {props.children}
+    {children}
   </S.Header>
 );
 

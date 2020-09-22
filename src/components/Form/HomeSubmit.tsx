@@ -1,9 +1,9 @@
-import React from "react";
-import { useListCoinValueContext } from "../../contexts/ListCoinValueContext";
+import React from 'react';
+import { useListCoinValueContext } from '../../contexts/ListCoinValueContext';
 
-import ListCoinValue from "../ListCoinValue";
+import ListCoinValue from '../ListCoinValue';
 
-import * as S from "./styles";
+import * as S from './styles';
 
 const HomeSubmit: React.FC = () => {
   const { handlaSubmit } = useListCoinValueContext();

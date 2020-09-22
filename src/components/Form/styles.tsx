@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Form = styled.form`
   width: 100%;
   color: ${(props) =>
-    props.className === "home" ? "var(--txt)" : "var(--primary)"};
+    props.className === 'home' ? 'var(--txt)' : 'var(--primary)'};
 `;
 
 export const ButtonDiv = styled.div`

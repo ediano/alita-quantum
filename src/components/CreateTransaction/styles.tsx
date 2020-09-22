@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Fieldset = styled.fieldset`
   display: block;
@@ -39,8 +39,8 @@ export const Input = styled.input`
   border-radius: 4px;
 
   ${(props) =>
-    props.value === "" &&
-    props.name === "address" &&
+    props.value === '' &&
+    props.name === 'address' &&
     css`
       border: 1px solid var(--alert);
     `}

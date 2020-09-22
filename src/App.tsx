@@ -1,9 +1,9 @@
-import React from "react";
-import Routes from "./routes";
+import React from 'react';
+import Routes from './routes';
 
-import GlobalStyles from "./styles/global";
+import GlobalStyles from './styles/global';
 
-const App = () => (
+const App: React.FC = () => (
   <>
     <GlobalStyles />
     <Routes />

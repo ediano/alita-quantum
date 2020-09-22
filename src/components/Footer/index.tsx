@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import { site } from "../../config/site";
+import { site } from '../../config/site';
 
-import * as S from "./styles";
+import * as S from './styles';
 
-const Footer = () => (
+const Footer: React.FC = () => (
   <S.Footer>
     <S.Content>
       <S.ALink to="/">{site.title}</S.ALink>

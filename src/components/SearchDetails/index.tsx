@@ -1,30 +1,30 @@
-import React, { useState, useEffect, FormEvent, ChangeEvent } from "react";
-import { Status, Props, NameCoin, Date } from "./type";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
-import { parseISO, format } from "date-fns";
+import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { parseISO, format } from 'date-fns';
+import { Status, Props, NameCoin, Date } from './type';
 
-import { useListCoinValueContext } from "../../contexts/ListCoinValueContext";
+import { useListCoinValueContext } from '../../contexts/ListCoinValueContext';
 
-import Spinner from "../Spinner";
+import Spinner from '../Spinner';
 
-import * as S from "./styles";
+import * as S from './styles';
 
-const SearchDetails: React.FC<Props> = ({ ...props }) => {
+const SearchDetails: React.FC<Props> = ({ id }) => {
   const history = useHistory();
   const { coins } = useListCoinValueContext();
   const [status, setStatus] = useState<Status>({} as Status);
   const [nameCoin, setNameCoin] = useState<NameCoin>({} as NameCoin);
-  const [id, setId] = useState("");
+  const [idState, setIdState] = useState('');
   const [spinner, setSpinner] = useState(false);
   const [date, setDate] = useState<Date>({} as Date);
-  const [err, setErr] = useState("");
+  const [err, setErr] = useState('');
 
   useEffect(() => {
-    if (props.id) {
+    if (id) {
       axios
         .get<Status>(
-          `https://changenow.io/api/v1/transactions/${props.id}/aff84c5fd0db837bbdae3ba3fca803648744a86b0997cdc6b4301e9c3130dc44`
+          `https://changenow.io/api/v1/transactions/${id}/aff84c5fd0db837bbdae3ba3fca803648744a86b0997cdc6b4301e9c3130dc44`
         )
         .then((response) => {
           setStatus(response.data);
@@ -33,7 +33,7 @@ const SearchDetails: React.FC<Props> = ({ ...props }) => {
           setErr(error.response.data);
         });
     }
-  }, [props.id, status]);
+  }, [id, status]);
 
   useEffect(() => {
     const from = coins.filter(
@@ -44,8 +44,8 @@ const SearchDetails: React.FC<Props> = ({ ...props }) => {
       (coin) => coin.ticker === status.toCurrency && coin.name
     );
 
-    if (status.id === props.id && from[0]?.name && to[0]?.name) {
-      setErr("");
+    if (status.id === id && from[0]?.name && to[0]?.name) {
+      setErr('');
       setSpinner(false);
       setNameCoin({ from: from[0].name, to: to[0].name });
 
@@ -70,23 +70,23 @@ const SearchDetails: React.FC<Props> = ({ ...props }) => {
       });
     }
 
-    if (err !== "") {
+    if (err !== '') {
       setSpinner(false);
     }
-  }, [coins, status, err, props.id]);
+  }, [coins, status, err, id]);
 
-  function handleInput(event: ChangeEvent<HTMLInputElement>) {
+  function handleInput(event: ChangeEvent<HTMLInputElement>): void {
     const { value } = event.target;
 
-    setId(value);
+    setIdState(value);
   }
 
-  function handleSubmit(event: FormEvent) {
+  function handleSubmit(event: FormEvent): void {
     event.preventDefault();
 
-    if (id) {
+    if (idState) {
       setSpinner(true);
-      history.push(`/search/${id}`);
+      history.push(`/search/${idState}`);
     }
   }
 
@@ -105,11 +105,11 @@ const SearchDetails: React.FC<Props> = ({ ...props }) => {
 
       {spinner && <Spinner />}
 
-      {err !== "" && (
+      {err !== '' && (
         <S.Error>Lamentamos, o ID informado não é existe.</S.Error>
       )}
 
-      {status.id && err === "" && (
+      {status.id && err === '' && (
         <>
           <S.Progress className={status.status}>
             <S.ProgressContent className={status.status} />
@@ -118,13 +118,13 @@ const SearchDetails: React.FC<Props> = ({ ...props }) => {
           <S.Section>
             <S.Content className={status.status}>
               <S.Capsule>
-                Status | {status.status === "waiting" && "Aguardando"}
-                {status.status === "confirming" && "Confirmado"}
-                {status.status === "exchanging" && "Trocando"}
-                {status.status === "sending" && "Enviando"}
-                {status.status === "finished" && "Finalizado"}
-                {status.status === "failed" && "Falha"}
-                {status.status === "expired" && "Expirado"}
+                Status | {status.status === 'waiting' && 'Aguardando'}
+                {status.status === 'confirming' && 'Confirmado'}
+                {status.status === 'exchanging' && 'Trocando'}
+                {status.status === 'sending' && 'Enviando'}
+                {status.status === 'finished' && 'Finalizado'}
+                {status.status === 'failed' && 'Falha'}
+                {status.status === 'expired' && 'Expirado'}
               </S.Capsule>
 
               {date.created && (
@@ -156,7 +156,7 @@ const SearchDetails: React.FC<Props> = ({ ...props }) => {
                 <S.Details>
                   {status.amountSend
                     ? status.amountSend
-                    : status.expectedSendAmount}{" "}
+                    : status.expectedSendAmount}{' '}
                   {nameCoin.from}
                 </S.Details>
               </S.Item>

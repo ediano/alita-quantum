@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Props, Status, NameCoin } from "./types";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Props, Status, NameCoin } from './types';
 
-import { useListCoinValueContext } from "../../contexts/ListCoinValueContext";
+import { useListCoinValueContext } from '../../contexts/ListCoinValueContext';
 
-import Spinner from "../Spinner";
+import Spinner from '../Spinner';
 
-import * as S from "./styles";
+import * as S from './styles';
 
-const TransactionDetails: React.FC<Props> = ({ ...props }) => {
+const TransactionDetails: React.FC<Props> = ({ id }) => {
   const { coins } = useListCoinValueContext();
   const [status, setStatus] = useState<Status>({} as Status);
   const [nameCoin, setNameCoin] = useState<NameCoin>({} as NameCoin);
@@ -16,12 +16,12 @@ const TransactionDetails: React.FC<Props> = ({ ...props }) => {
   useEffect(() => {
     axios
       .get<Status>(
-        `https://changenow.io/api/v1/transactions/${props.id}/aff84c5fd0db837bbdae3ba3fca803648744a86b0997cdc6b4301e9c3130dc44`
+        `https://changenow.io/api/v1/transactions/${id}/aff84c5fd0db837bbdae3ba3fca803648744a86b0997cdc6b4301e9c3130dc44`
       )
       .then((response) => {
         setStatus(response.data);
       });
-  }, [props.id, status]);
+  }, [id, status]);
 
   useEffect(() => {
     const from = coins.filter(
@@ -64,15 +64,13 @@ const TransactionDetails: React.FC<Props> = ({ ...props }) => {
           <S.StatusContent>
             Caso queira acompanhar o progresso da transação continue nesta
             página.
-
-            {status.status === "waiting" && <S.Status>Aguardando</S.Status>}
-            {status.status === "confirming" && <S.Status>Confirmado</S.Status>}
-            {status.status === "exchanging" && <S.Status>Trocando</S.Status>}
-            {status.status === "sending" && <S.Status>Enviando</S.Status>}
-            {status.status === "finished" && <S.Status>Finalizado</S.Status>}
-            {status.status === "failed" && <S.Status>Falha</S.Status>}
-            {status.status === "expired" && <S.Status>Expirado</S.Status>}
-            
+            {status.status === 'waiting' && <S.Status>Aguardando</S.Status>}
+            {status.status === 'confirming' && <S.Status>Confirmado</S.Status>}
+            {status.status === 'exchanging' && <S.Status>Trocando</S.Status>}
+            {status.status === 'sending' && <S.Status>Enviando</S.Status>}
+            {status.status === 'finished' && <S.Status>Finalizado</S.Status>}
+            {status.status === 'failed' && <S.Status>Falha</S.Status>}
+            {status.status === 'expired' && <S.Status>Expirado</S.Status>}
             <S.Progress className={status.status}>
               <S.ProgressContent className={status.status} />
             </S.Progress>

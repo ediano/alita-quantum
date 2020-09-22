@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Fieldset = styled.fieldset`
   display: flex;
@@ -7,7 +7,7 @@ export const Fieldset = styled.fieldset`
 export const Legend = styled.legend`
   font-size: 2rem;
   color: ${(props) =>
-    props.theme === "home" ? "var(--txt)" : "var(--primary)"};
+    props.theme === 'home' ? 'var(--txt)' : 'var(--primary)'};
 `;
 
 export const FieldGroup = styled.div`
@@ -84,6 +84,6 @@ export const IcoButton = styled.button`
 
   svg {
     fill: ${(props) =>
-      props.theme === "home" ? "var(--txt)" : "var(--primary)"};
+      props.theme === 'home' ? 'var(--txt)' : 'var(--primary)'};
   }
 `;

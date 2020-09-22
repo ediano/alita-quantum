@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { FiMenu } from "react-icons/fi";
+import React, { useState, useEffect } from 'react';
+import { FiMenu } from 'react-icons/fi';
 
-import { site, listLinks } from "../../config/site";
+import { site, listLinks } from '../../config/site';
 
-import * as S from "./styles";
+import * as S from './styles';
 
-const Header = () => {
+const Header: React.FC = () => {
   const width = 550;
-  const [slideOut, setSlideOut] = useState("");
+  const [slideOut, setSlideOut] = useState('');
   const [btn, setBtn] = useState(false);
 
-  window.addEventListener("resize", () => {
+  window.addEventListener('resize', () => {
     if (window.innerWidth <= width) {
       setBtn(true);
     } else if (btn) {
@@ -26,8 +26,8 @@ const Header = () => {
     }
   }, [btn]);
 
-  function handlaButton() {
-    slideOut === "slide-out" ? setSlideOut("") : setSlideOut("slide-out");
+  function handlaButton(): void {
+    slideOut === 'slide-out' ? setSlideOut('') : setSlideOut('slide-out');
   }
 
   return (

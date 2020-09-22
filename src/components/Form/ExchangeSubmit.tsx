@@ -1,11 +1,11 @@
-import React from "react";
-import { useExchangeContext } from "../../contexts/ExchangeContext";
+import React from 'react';
+import { useExchangeContext } from '../../contexts/ExchangeContext';
 
-import ListCoinValue from "../ListCoinValue";
-import CreateTransaction from "../CreateTransaction";
-import ConfirmTransaction from "../ConfirmTransaction";
+import ListCoinValue from '../ListCoinValue';
+import CreateTransaction from '../CreateTransaction';
+import ConfirmTransaction from '../ConfirmTransaction';
 
-import * as S from "./styles";
+import * as S from './styles';
 
 const ExchangeSubmit: React.FC = () => {
   const { handlaSubmit, handlaClick } = useExchangeContext();
