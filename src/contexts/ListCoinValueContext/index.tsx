@@ -1,5 +1,6 @@
 import React, {
   createContext,
+  useCallback,
   useContext,
   useState,
   useEffect,
@@ -104,48 +105,54 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
     }
   }, [flow]);
 
-  function handlaSelectedCoin(event: ChangeEvent<HTMLSelectElement>): void {
-    const { name, value } = event.target;
-    const { from, to } = flow;
+  const handlaSelectedCoin = useCallback(
+    (event: ChangeEvent<HTMLSelectElement>) => {
+      const { name, value } = event.target;
+      const { from, to } = flow;
 
-    if (name === 'from' && value === to) {
-      setSelectedCoin({
-        ...selectedCoin,
-        to: from,
-        [name]: value,
-      });
-    } else if (name === 'to' && value === from) {
-      setSelectedCoin({
-        ...selectedCoin,
-        from: to,
-        [name]: value,
-      });
-    } else {
-      setSelectedCoin({ ...selectedCoin, [name]: value });
-    }
-  }
+      if (name === 'from' && value === to) {
+        setSelectedCoin({
+          ...selectedCoin,
+          to: from,
+          [name]: value,
+        });
+      } else if (name === 'to' && value === from) {
+        setSelectedCoin({
+          ...selectedCoin,
+          from: to,
+          [name]: value,
+        });
+      } else {
+        setSelectedCoin({ ...selectedCoin, [name]: value });
+      }
+    },
+    []
+  );
 
-  function handlaSendValue(event: ChangeEvent<HTMLInputElement>): void {
-    const { value } = event.target;
+  const handlaSendValue = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
 
-    if (value === '') {
-      setFlow({ ...flow, amount: '0' });
-      setSendAmount('');
-    } else if (Number(value) || Number(value) === 0) {
-      setSendAmount(value);
-      setFlow({ ...flow, amount: value });
-    }
-  }
+      if (value === '') {
+        setFlow({ ...flow, amount: '0' });
+        setSendAmount('');
+      } else if (Number(value) || Number(value) === 0) {
+        setSendAmount(value);
+        setFlow({ ...flow, amount: value });
+      }
+    },
+    []
+  );
 
-  function handlaExchange(): void {
+  const handlaExchange = useCallback(() => {
     setSelectedCoin({
       ...selectedCoin,
       from: flow.to,
       to: flow.from,
     });
-  }
+  }, []);
 
-  function handlaSubmit(event: FormEvent): void {
+  const handlaSubmit = useCallback((event: FormEvent) => {
     event.preventDefault();
 
     const { amount, from, to } = flow;
@@ -153,7 +160,7 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
     if (Number(flow.amount) >= minAmount) {
       history.push(`/trocar/${amount}/${from}/${to}`);
     }
-  }
+  }, []);
 
   const value = {
     coins,
