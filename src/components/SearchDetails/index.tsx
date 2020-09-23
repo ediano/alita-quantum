@@ -1,4 +1,10 @@
-import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  FormEvent,
+  ChangeEvent,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import { parseISO, format } from 'date-fns';
 import { Status, Props, NameCoin, Date } from './type';
@@ -73,20 +79,23 @@ const SearchDetails: React.FC<Props> = ({ id }) => {
     }
   }, [coins, status, err, id]);
 
-  function handleInput(event: ChangeEvent<HTMLInputElement>): void {
+  const handleInput = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
     setIdState(value);
-  }
+  }, []);
 
-  function handleSubmit(event: FormEvent): void {
-    event.preventDefault();
+  const handleSubmit = useCallback(
+    (event: FormEvent) => {
+      event.preventDefault();
 
-    if (idState) {
-      setSpinner(true);
-      history.push(`/search/${idState}`);
-    }
-  }
+      if (idState) {
+        setSpinner(true);
+        history.push(`/search/${idState}`);
+      }
+    },
+    [history, idState]
+  );
 
   return (
     <>
