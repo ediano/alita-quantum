@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FiMenu } from 'react-icons/fi';
 
 import { site, listLinks } from '../../config/site';
@@ -26,9 +26,9 @@ const Header: React.FC = () => {
     }
   }, [btn]);
 
-  function handlaButton(): void {
+  const handlaButton = useCallback(() => {
     slideOut === 'slide-out' ? setSlideOut('') : setSlideOut('slide-out');
-  }
+  }, []);
 
   return (
     <S.Nav>
