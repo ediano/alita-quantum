@@ -1,6 +1,7 @@
 import React, {
   createContext,
   useContext,
+  useCallback,
   useState,
   ChangeEvent,
   FormEvent,
@@ -87,19 +88,22 @@ export const ExchangeProvider: React.FC<Props> = ({ dataURL, children }) => {
     }
   }, [flow, success, history, error]);
 
-  function handlaPayoutAddress(event: ChangeEvent<HTMLInputElement>): void {
-    const { value } = event.target;
+  const handlaPayoutAddress = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
 
-    setPayoutAddress(value);
-  }
+      setPayoutAddress(value);
+    },
+    []
+  );
 
-  function handlaExtraId(event: ChangeEvent<HTMLInputElement>): void {
+  const handlaExtraId = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
     setExtraId(value);
-  }
+  }, []);
 
-  function handlaClick(): void {
+  const handlaClick = useCallback(() => {
     if (payoutAddress) {
       if (confirmTransaction) {
         success?.id && setSuccess(null);
@@ -109,33 +113,36 @@ export const ExchangeProvider: React.FC<Props> = ({ dataURL, children }) => {
         setConfirmTransaction(true);
       }
     }
-  }
+  }, [confirmTransaction, success, payoutAddress]);
 
-  function handlaSubmit(event: FormEvent): void {
-    event.preventDefault();
-    setSpinner(true);
+  const handlaSubmit = useCallback(
+    (event: FormEvent) => {
+      event.preventDefault();
+      setSpinner(true);
 
-    const { amount, from, to } = flow;
+      const { amount, from, to } = flow;
 
-    const data = {
-      from,
-      to,
-      amount,
-      address: payoutAddress,
-      extraId: extraId || '',
-    };
+      const data = {
+        from,
+        to,
+        amount,
+        address: payoutAddress,
+        extraId: extraId || '',
+      };
 
-    if (payoutAddress && Number(flow.amount) >= minAmount) {
-      api
-        .post<Success>(`/transactions/${process.env.REACT_APP_API_KEY}`, data)
-        .then((response) => {
-          setSuccess(response.data);
-        })
-        .catch((err) => {
-          setError(err.response.data.error);
-        });
-    }
-  }
+      if (payoutAddress && Number(flow.amount) >= minAmount) {
+        api
+          .post<Success>(`/transactions/${process.env.REACT_APP_API_KEY}`, data)
+          .then((response) => {
+            setSuccess(response.data);
+          })
+          .catch((err) => {
+            setError(err.response.data.error);
+          });
+      }
+    },
+    [flow, payoutAddress, extraId, minAmount]
+  );
 
   const value = {
     propsFlow,

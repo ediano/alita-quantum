@@ -1,5 +1,4 @@
-import { ChangeEvent, FormEvent } from "react";
-import { Interface } from "readline";
+import { ChangeEvent, FormEvent } from 'react';
 
 export interface Coins {
   ticker: string;
