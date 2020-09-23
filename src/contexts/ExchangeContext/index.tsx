@@ -1,6 +1,7 @@
 import React, {
   createContext,
   useContext,
+  useCallback,
   useState,
   ChangeEvent,
   FormEvent,
@@ -87,19 +88,22 @@ export const ExchangeProvider: React.FC<Props> = ({ dataURL, children }) => {
     }
   }, [flow, success, history, error]);
 
-  function handlaPayoutAddress(event: ChangeEvent<HTMLInputElement>): void {
-    const { value } = event.target;
+  const handlaPayoutAddress = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const { value } = event.target;
 
-    setPayoutAddress(value);
-  }
+      setPayoutAddress(value);
+    },
+    []
+  );
 
-  function handlaExtraId(event: ChangeEvent<HTMLInputElement>): void {
+  const handlaExtraId = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
     setExtraId(value);
-  }
+  }, []);
 
-  function handlaClick(): void {
+  const handlaClick = useCallback(() => {
     if (payoutAddress) {
       if (confirmTransaction) {
         success?.id && setSuccess(null);
@@ -109,9 +113,9 @@ export const ExchangeProvider: React.FC<Props> = ({ dataURL, children }) => {
         setConfirmTransaction(true);
       }
     }
-  }
+  }, []);
 
-  function handlaSubmit(event: FormEvent): void {
+  const handlaSubmit = useCallback((event: FormEvent) => {
     event.preventDefault();
     setSpinner(true);
 
@@ -135,7 +139,7 @@ export const ExchangeProvider: React.FC<Props> = ({ dataURL, children }) => {
           setError(err.response.data.error);
         });
     }
-  }
+  }, []);
 
   const value = {
     propsFlow,
