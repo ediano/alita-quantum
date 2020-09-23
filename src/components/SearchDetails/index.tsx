@@ -1,8 +1,8 @@
 import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 import { parseISO, format } from 'date-fns';
 import { Status, Props, NameCoin, Date } from './type';
+import api from '../../services/api';
 
 import { useListCoinValueContext } from '../../contexts/ListCoinValueContext';
 
@@ -22,10 +22,8 @@ const SearchDetails: React.FC<Props> = ({ id }) => {
 
   useEffect(() => {
     if (id) {
-      axios
-        .get<Status>(
-          `https://changenow.io/api/v1/transactions/${id}/aff84c5fd0db837bbdae3ba3fca803648744a86b0997cdc6b4301e9c3130dc44`
-        )
+      api
+        .get<Status>(`/transactions/${id}/${process.env.REACT_APP_API_KEY}`)
         .then((response) => {
           setStatus(response.data);
         })
