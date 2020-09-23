@@ -85,14 +85,17 @@ const SearchDetails: React.FC<Props> = ({ id }) => {
     setIdState(value);
   }, []);
 
-  const handleSubmit = useCallback((event: FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = useCallback(
+    (event: FormEvent) => {
+      event.preventDefault();
 
-    if (idState) {
-      setSpinner(true);
-      history.push(`/search/${idState}`);
-    }
-  }, []);
+      if (idState) {
+        setSpinner(true);
+        history.push(`/search/${idState}`);
+      }
+    },
+    [history, idState]
+  );
 
   return (
     <>

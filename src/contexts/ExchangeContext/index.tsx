@@ -113,33 +113,36 @@ export const ExchangeProvider: React.FC<Props> = ({ dataURL, children }) => {
         setConfirmTransaction(true);
       }
     }
-  }, []);
+  }, [confirmTransaction, success, payoutAddress]);
 
-  const handlaSubmit = useCallback((event: FormEvent) => {
-    event.preventDefault();
-    setSpinner(true);
+  const handlaSubmit = useCallback(
+    (event: FormEvent) => {
+      event.preventDefault();
+      setSpinner(true);
 
-    const { amount, from, to } = flow;
+      const { amount, from, to } = flow;
 
-    const data = {
-      from,
-      to,
-      amount,
-      address: payoutAddress,
-      extraId: extraId || '',
-    };
+      const data = {
+        from,
+        to,
+        amount,
+        address: payoutAddress,
+        extraId: extraId || '',
+      };
 
-    if (payoutAddress && Number(flow.amount) >= minAmount) {
-      api
-        .post<Success>(`/transactions/${process.env.REACT_APP_API_KEY}`, data)
-        .then((response) => {
-          setSuccess(response.data);
-        })
-        .catch((err) => {
-          setError(err.response.data.error);
-        });
-    }
-  }, []);
+      if (payoutAddress && Number(flow.amount) >= minAmount) {
+        api
+          .post<Success>(`/transactions/${process.env.REACT_APP_API_KEY}`, data)
+          .then((response) => {
+            setSuccess(response.data);
+          })
+          .catch((err) => {
+            setError(err.response.data.error);
+          });
+      }
+    },
+    [flow, payoutAddress, extraId, minAmount]
+  );
 
   const value = {
     propsFlow,

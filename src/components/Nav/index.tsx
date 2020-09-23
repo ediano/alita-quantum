@@ -28,7 +28,7 @@ const Header: React.FC = () => {
 
   const handlaButton = useCallback(() => {
     slideOut === 'slide-out' ? setSlideOut('') : setSlideOut('slide-out');
-  }, []);
+  }, [slideOut]);
 
   return (
     <S.Nav>

@@ -126,7 +126,7 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
         setSelectedCoin({ ...selectedCoin, [name]: value });
       }
     },
-    []
+    [flow, selectedCoin]
   );
 
   const handlaSendValue = useCallback(
@@ -141,7 +141,7 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
         setFlow({ ...flow, amount: value });
       }
     },
-    []
+    [flow]
   );
 
   const handlaExchange = useCallback(() => {
@@ -150,17 +150,20 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
       from: flow.to,
       to: flow.from,
     });
-  }, []);
+  }, [flow.to, flow.from, selectedCoin]);
 
-  const handlaSubmit = useCallback((event: FormEvent) => {
-    event.preventDefault();
+  const handlaSubmit = useCallback(
+    (event: FormEvent) => {
+      event.preventDefault();
 
-    const { amount, from, to } = flow;
+      const { amount, from, to } = flow;
 
-    if (Number(flow.amount) >= minAmount) {
-      history.push(`/trocar/${amount}/${from}/${to}`);
-    }
-  }, []);
+      if (Number(flow.amount) >= minAmount) {
+        history.push(`/trocar/${amount}/${from}/${to}`);
+      }
+    },
+    [flow, history, minAmount]
+  );
 
   const value = {
     coins,
