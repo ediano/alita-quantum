@@ -15,7 +15,7 @@ export const affiliates = [
   },
   {
     title: 'CryptoTab',
-    url: 'https://cryptotabbrowser.com/15537985',
+    url: 'https://cryptotabbrowser.com/16519077',
     description:
       'O primeiro navegador do mundo com recurso de mineração. Mais de 10 milhões de utilizadores em todo o mundo já ganharam com o CryptoTab Browser!',
     img: 'https://i.imgur.com/BXCTaEX.png',
