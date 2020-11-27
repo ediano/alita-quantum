@@ -10,8 +10,8 @@ const Notification: React.FC = () => (
       API da ChangeNOW. E está disponível no GitHub de forma livre sob licença
       MIT,{' '}
       <S.TxtLink
-        href="https://github.com/ediano/alitaquantum.com"
-        target="black"
+        href="https://github.com/ediano/alita-quantum"
+        target="_black"
       >
         aceitamos contribuições
       </S.TxtLink>
