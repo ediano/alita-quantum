@@ -1,8 +1,10 @@
 {
   "homepage": "https://alitaquantum.com/",
-  "name": "alitaquantum.com",
+  "name": "alita-quantum",
   "version": "0.1.0",
   "private": true,
+  "author": "Ediano Silva Santos <silva.ediano.santos@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
     "date-fns": "^2.14.0",
