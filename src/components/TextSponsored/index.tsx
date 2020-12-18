@@ -60,7 +60,7 @@ const TextSponsored: React.FC = () => {
               <S.Wrapper>
                 Comece a minerar Bitcoin através do navegador com a CryptoTab
                 <S.ImgLink
-                  href="https://cryptotabbrowser.com/15537985"
+                  href="https://cryptotabbrowser.com/16519077"
                   target="black"
                 >
                   <S.ContentImg src="https://i.imgur.com/BXCTaEX.png" />
@@ -68,7 +68,7 @@ const TextSponsored: React.FC = () => {
               </S.Wrapper>
 
               <S.LinkMiner
-                href="https://cryptotabbrowser.com/14543548"
+                href="https://cryptotabbrowser.com/16519077"
                 target="black"
               >
                 Acessar agora!
