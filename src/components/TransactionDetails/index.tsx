@@ -16,7 +16,7 @@ const TransactionDetails: React.FC<Props> = ({ id }) => {
   useEffect(() => {
     axios
       .get<Status>(
-        `https://changenow.io/api/v1/transactions/${id}/aff84c5fd0db837bbdae3ba3fca803648744a86b0997cdc6b4301e9c3130dc44`
+        `https://changenow.io/api/v1/transactions/${id}/aff84c5fd0db837bbdae3ba3fca803648744a86b0997cdc6b4301e9c3130dc44`,
       )
       .then((response) => {
         setStatus(response.data);
@@ -25,11 +25,11 @@ const TransactionDetails: React.FC<Props> = ({ id }) => {
 
   useEffect(() => {
     const from = coins.filter(
-      (coin) => coin.ticker === status.fromCurrency && coin.name
+      (coin) => coin.ticker === status.fromCurrency && coin.name,
     );
 
     const to = coins.filter(
-      (coin) => coin.ticker === status.toCurrency && coin.name
+      (coin) => coin.ticker === status.toCurrency && coin.name,
     );
 
     from[0]?.name &&

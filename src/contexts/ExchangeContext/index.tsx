@@ -94,7 +94,7 @@ export const ExchangeProvider: React.FC<Props> = ({ dataURL, children }) => {
 
       setPayoutAddress(value);
     },
-    []
+    [],
   );
 
   const handlaExtraId = useCallback((event: ChangeEvent<HTMLInputElement>) => {
@@ -141,7 +141,7 @@ export const ExchangeProvider: React.FC<Props> = ({ dataURL, children }) => {
           });
       }
     },
-    [flow, payoutAddress, extraId, minAmount]
+    [flow, payoutAddress, extraId, minAmount],
   );
 
   const value = {

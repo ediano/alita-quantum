@@ -9,10 +9,7 @@ const Notification: React.FC = () => (
       desenvolvimento para novos serviços de troca de criptomoedas, consumindo a
       API da ChangeNOW. E está disponível no GitHub de forma livre sob licença
       MIT,{' '}
-      <S.TxtLink
-        href="https://github.com/ediano/alita-quantum"
-        target="_black"
-      >
+      <S.TxtLink href="https://github.com/ediano/alita-quantum" target="_black">
         aceitamos contribuições
       </S.TxtLink>
       , pois ainda temos muitas coisas para melhorar, ou se preferir, você pode

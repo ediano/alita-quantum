@@ -41,11 +41,11 @@ const SearchDetails: React.FC<Props> = ({ id }) => {
 
   useEffect(() => {
     const from = coins.filter(
-      (coin) => coin.ticker === status.fromCurrency && coin.name
+      (coin) => coin.ticker === status.fromCurrency && coin.name,
     );
 
     const to = coins.filter(
-      (coin) => coin.ticker === status.toCurrency && coin.name
+      (coin) => coin.ticker === status.toCurrency && coin.name,
     );
 
     if (status.id === id && from[0]?.name && to[0]?.name) {
@@ -94,7 +94,7 @@ const SearchDetails: React.FC<Props> = ({ id }) => {
         history.push(`/search/${idState}`);
       }
     },
-    [history, idState]
+    [history, idState],
   );
 
   return (

@@ -51,7 +51,7 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
   useEffect(() => {
     async function marketValidation(): Promise<void> {
       const response = await api.get(
-        `/market-info/available-pairs/?includePartners=false`
+        `/market-info/available-pairs/?includePartners=false`,
       );
       setMarketInfo(response.data);
     }
@@ -62,7 +62,7 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
   useEffect(() => {
     const { from, to } = selectedCoin;
 
-    async function minAmount(): Promise<void> {
+    async function getMinAmount(): Promise<void> {
       const response = await api.get<MinAmount>(`/min-amount/${from}_${to}`);
 
       const data = {
@@ -72,7 +72,7 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
       };
 
       const external = coins.filter(
-        (item) => to === item.ticker && item.hasExternalId
+        (item) => to === item.ticker && item.hasExternalId,
       );
 
       setMinAmount(response.data.minAmount);
@@ -82,11 +82,11 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
     }
 
     const market = marketInfo.filter(
-      (fromTo) => fromTo === `${from}_${to}` && fromTo
+      (fromTo) => fromTo === `${from}_${to}` && fromTo,
     );
 
     if (market[0]) {
-      minAmount();
+      getMinAmount();
     }
   }, [coins, selectedCoin, marketInfo]);
 
@@ -95,7 +95,7 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
 
     async function exchangeAmount(): Promise<void> {
       const response = await api.get<EstimatedAmount>(
-        `/exchange-amount/${amount}/${from}_${to}/?api_key=${process.env.REACT_APP_API_KEY}`
+        `/exchange-amount/${amount}/${from}_${to}/?api_key=${process.env.REACT_APP_API_KEY}`,
       );
       setEstimatedAmount(response.data.estimatedAmount);
     }
@@ -126,7 +126,7 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
         setSelectedCoin({ ...selectedCoin, [name]: value });
       }
     },
-    [flow, selectedCoin]
+    [flow, selectedCoin],
   );
 
   const handlaSendValue = useCallback(
@@ -141,7 +141,7 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
         setFlow({ ...flow, amount: value });
       }
     },
-    [flow]
+    [flow],
   );
 
   const handlaExchange = useCallback(() => {
@@ -162,7 +162,7 @@ export const ListCoinValueProvider: React.FC = ({ children }) => {
         history.push(`/trocar/${amount}/${from}/${to}`);
       }
     },
-    [flow, history, minAmount]
+    [flow, history, minAmount],
   );
 
   const value = {
